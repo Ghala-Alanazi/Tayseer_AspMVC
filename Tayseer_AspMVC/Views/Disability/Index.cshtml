@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Disability>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<div class="text-end">
+    <a asp-action="Create" class="btn btn-primary mb-3">Create New</a>
+</div>
+
+<table class="table table-striped mb-3">
+
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var disability in Model)
+                {
+                    <tr>
+                        <td>@disability.Id</td>
+                        <td>@disability.Name</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@disability.Id" class="btn btn-warning">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@disability.Id" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3">No state-defined disability</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    </tbody>
+
+
+
+
+

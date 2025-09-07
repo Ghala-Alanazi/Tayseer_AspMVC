@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Hospital>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Hospital List</h1>
+<div class="text-end">
+    <a asp-action="Create" class="btn btn-primary mb-3">Create New</a>
+</div>
+
+<table class="table table-striped mb-3">
+
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Disability</th>
+            <th>Address</th>
+            <th>Services</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var Hospital in Model)
+        {
+            <tr>
+                <td>@Hospital.Id</td>
+                <td>@Hospital.Name</td>
+                <td>@Hospital.Disability?.Name</td>
+                <td>@Hospital.Address</td>
+                <td>@Hospital.Services</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@Hospital.Id" class="btn btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@Hospital.Id" class="btn btn-danger">Delete</a>
+            </tr>
+
+        }
+
+
+    </tbody>
+
+
+</table>
+

@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Disability>
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+
+<form asp-action="Create" method="post">
+
+    <div>
+        <label>Name:</label>
+        <input name="Name" class="form-control" />
+    </div>
+
+
+    <hr>
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+
+</form>
+
