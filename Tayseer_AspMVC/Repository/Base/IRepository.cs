@@ -1,4 +1,6 @@
-﻿namespace Tayseer_AspMVC.Repository.Base
+﻿using Tayseer_AspMVC.Models;
+
+namespace Tayseer_AspMVC.Repository.Base
 {
     public interface IRepository<T> where T : class
     {
@@ -7,5 +9,6 @@
         void Add(T entity);
         void Update(T entity);
         void Delete(T entity);
+        
     }
 }

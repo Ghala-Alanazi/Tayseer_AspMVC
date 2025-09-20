@@ -1,0 +1,39 @@
+﻿@model Tayseer_AspMVC.Models.School
+
+@{
+    ViewData["Title"] = "تعديل مدرسة";
+}
+
+<h2>تعديل بيانات المدرسة</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label>اسم المدرسة:</label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>الجنس:</label>
+        <select asp-for="Gender" class="form-control">
+            <option value="بنين">بنين</option>
+            <option value="بنات">بنات</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>المرحلة:</label>
+        <select asp-for="Stages" class="form-control">
+            <option value="ابتدائي">ابتدائي</option>
+            <option value="متوسط">متوسط</option>
+            <option value="ثانوي">ثانوي</option>
+        </select>
+    </div>
+
+    
+    
+
+    <button type="submit" class="btn btn-primary">حفظ التعديلات</button>
+    <a asp-action="Index" class="btn btn-secondary">إلغاء</a>
+</form>

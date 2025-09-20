@@ -1,4 +1,6 @@
-﻿namespace Tayseer_AspMVC.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Tayseer_AspMVC.Models
 {
     public class Hospital
     {
@@ -6,8 +8,10 @@
         public string Name { get; set; }
         public string Address { get; set; }
         public string Services { get; set; }
-        public int DisabilityId { get; set; }
-        public virtual Disability? Disability { get; set; }
+      
 
+        // المستخدم يحدد إعاقات متعددة
+        [NotMapped]
+        public List<int> SelectedDisabilityIds { get; set; } = new List<int>();
     }
 }

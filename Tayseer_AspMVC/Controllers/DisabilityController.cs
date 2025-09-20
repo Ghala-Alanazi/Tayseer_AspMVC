@@ -24,21 +24,21 @@ namespace Tayseer_AspMVC.Controllers
                 return View(disabilities);
             }
 
-        // يرجع البيانات بصيغة JSON مع عدد المنتجات المرتبطة
-        //public IActionResult GetAll()
-        //{
-        //    var disabilities = _unitOfWork.Disabilitys.FindAll()
+        //يرجع البيانات بصيغة JSON مع عدد المنتجات المرتبطة
+        public IActionResult GetAll()
+        {
+            var disabilities = _unitOfWork.Disabilitys.FindAll();
 
-        //        .Select( d => new DisabilityDto
-        //        {
-        //            Id = d.Id,
-        //            Name = d.Name,
-        //            HospitalName = d.Hospitals !=null ? d.Hospitals.Name : "لا يوجد مستشفى مرتبط"
-        //        })
-        //        .ToList();
+            disabilities.Select(d => new DisabilityDto
+                {
+                    Id = d.Id,
+                    Name = d.Name,
+                   // HospitalName = d.Hospitals != null ? d.Hospitals.Name : "لا يوجد مستشفى مرتبط"
+                })
+                .ToList();
 
-        //    return Ok(disabilities); // يرجع JSON بشكل منظم
-        //}
+            return Ok(disabilities); // يرجع JSON بشكل منظم
+        }
 
 
         [HttpGet]

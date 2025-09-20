@@ -8,8 +8,8 @@ namespace Tayseer_AspMVC.Repository.Base
 
         IRepository<Disability> Disabilitys { get; }
         IRepository<Hospital> Hospitals { get; }
-
-
+        IRepoSchool Schools { get; }
+      
         void Save();
     }
 }

@@ -4,42 +4,36 @@
 }
 
 <h1>Hospital List</h1>
+<partial name="_NotificationsPartial" />
 <div class="text-end">
     <a asp-action="Create" class="btn btn-primary mb-3">Create New</a>
 </div>
 
 <table class="table table-striped mb-3">
-
     <thead>
         <tr>
             <th>#</th>
             <th>Name</th>
-            <th>Disability</th>
+        
             <th>Address</th>
             <th>Services</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-
-        @foreach (var Hospital in Model)
+        @foreach (var hospital in Model)
         {
             <tr>
-                <td>@Hospital.Id</td>
-                <td>@Hospital.Name</td>
-                <td>@Hospital.Disability?.Name</td>
-                <td>@Hospital.Address</td>
-                <td>@Hospital.Services</td>
+                <td>@hospital.Id</td>
+                <td>@hospital.Name</td>
+              
+                <td>@hospital.Address</td>
+                <td>@hospital.Services</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@Hospital.Id" class="btn btn-warning">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@Hospital.Id" class="btn btn-danger">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@hospital.Id" class="btn btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@hospital.Id" class="btn btn-danger">Delete</a>
+                </td>
             </tr>
-
         }
-
-
     </tbody>
-
-
 </table>
-

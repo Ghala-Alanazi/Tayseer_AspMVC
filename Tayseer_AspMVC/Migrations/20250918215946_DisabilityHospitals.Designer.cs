@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tayseer_AspMVC.Data;
 
@@ -10,9 +11,11 @@ using Tayseer_AspMVC.Data;
 namespace Tayseer_AspMVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250918215946_DisabilityHospitals")]
+    partial class DisabilityHospitals
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,6 +39,29 @@ namespace Tayseer_AspMVC.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Disabilities");
+                });
+
+            modelBuilder.Entity("Tayseer_AspMVC.Models.DisabilityHospital", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DisabilityId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HospitalId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DisabilityId");
+
+                    b.HasIndex("HospitalId");
+
+                    b.ToTable("DisabilityHospitals");
                 });
 
             modelBuilder.Entity("Tayseer_AspMVC.Models.Hospital", b =>
@@ -63,29 +89,33 @@ namespace Tayseer_AspMVC.Migrations
                     b.ToTable("Hospitals");
                 });
 
-            modelBuilder.Entity("Tayseer_AspMVC.Models.School", b =>
+            modelBuilder.Entity("Tayseer_AspMVC.Models.DisabilityHospital", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.HasOne("Tayseer_AspMVC.Models.Disability", "Disability")
+                        .WithMany("DisabilityHospitals")
+                        .HasForeignKey("DisabilityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.HasOne("Tayseer_AspMVC.Models.Hospital", "Hospital")
+                        .WithMany("DisabilityHospitals")
+                        .HasForeignKey("HospitalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Navigation("Disability");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Navigation("Hospital");
+                });
 
-                    b.Property<string>("Stages")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+            modelBuilder.Entity("Tayseer_AspMVC.Models.Disability", b =>
+                {
+                    b.Navigation("DisabilityHospitals");
+                });
 
-                    b.HasKey("Id");
-
-                    b.ToTable("Schools");
+            modelBuilder.Entity("Tayseer_AspMVC.Models.Hospital", b =>
+                {
+                    b.Navigation("DisabilityHospitals");
                 });
 #pragma warning restore 612, 618
         }

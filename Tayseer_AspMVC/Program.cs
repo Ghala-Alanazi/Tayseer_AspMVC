@@ -13,6 +13,8 @@ var conectionString = builder.Configuration.GetConnectionString("DefaultConnecti
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(conectionString));
 
+builder.Services.AddScoped(typeof(IRepository<>), typeof(MainRepository<>));
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddSession(options =>
 {
@@ -20,6 +22,7 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+builder.Services.AddScoped<IRoposHospital, RoposHospital>();
 
 var app = builder.Build();
 
@@ -35,7 +38,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseSession();
 app.UseAuthorization();
 
 app.MapControllerRoute(

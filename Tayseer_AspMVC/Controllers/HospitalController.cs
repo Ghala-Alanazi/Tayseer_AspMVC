@@ -2,100 +2,101 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Tayseer_AspMVC.Models;
 using Tayseer_AspMVC.Repository.Base;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Tayseer_AspMVC.Controllers
 {
     public class HospitalController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        public HospitalController(IUnitOfWork unitOfWork)
+        private readonly IRoposHospital _roposHospital;
+
+        public HospitalController(IUnitOfWork unitOfWork, IRoposHospital hospitalRepo)
         {
             _unitOfWork = unitOfWork;
+            _roposHospital = hospitalRepo;
         }
 
-
-
+        // GET: Hospital
+        [HttpGet]
         public IActionResult Index()
         {
-            IEnumerable<Hospital> Hospitals = _unitOfWork.Hospitals.FindAll();
-            return View(Hospitals);
+            var hospitals = _unitOfWork.Hospitals.FindAll();
+            if (hospitals.Any())
+                TempData["Success"] = "تم جلب البيانات بنجاح";
+            else
+                TempData["Error"] = "لا توجد بيانات لعرضها";
+
+            return View(hospitals);
         }
 
-        private void CreateDisabilitySelectList()
-        {
-            IEnumerable<Disability> Disabilitys = _unitOfWork.Disabilitys.FindAll();
-
-            SelectList selectListItems = new SelectList(Disabilitys, "Id", "Name", 0);
-            ViewBag.Disabilitys = selectListItems;
-        }
-
-
+        // GET: Hospital/Create
         [HttpGet]
         public IActionResult Create()
         {
-            CreateDisabilitySelectList();
+            
             return View();
         }
 
-
+        // POST: Hospital/Create
         [HttpPost]
-        public IActionResult Create(Hospital hospitals)
+        public IActionResult Create(Hospital hospital)
         {
-            if (ModelState.IsValid)
-            {
-                _unitOfWork.Hospitals.Add(hospitals);
-                _unitOfWork.Save();
+          
 
+                _unitOfWork.Hospitals.Add(hospital);
+                _unitOfWork.Save();
 
                 TempData["Add"] = "تم اضافة البيانات بنجاح";
-                return View("Index");
-            }
-            else
-            {
-                return View(hospitals);
-            }
+                return RedirectToAction("Index");
+            
+           
         }
 
+        // GET: Hospital/Edit/5
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var hospital = _roposHospital.FindById(id);
+           
+            return View(hospital);
+        }
 
-            [HttpGet]
-
-            public IActionResult Edit(int Id)
-            {
-                var Disa = _unitOfWork.Hospitals.FindById(Id);
-                CreateDisabilitySelectList();
-                return View(Disa);
-            }
-
-
-            [HttpPost]
-            public IActionResult Edit(Hospital hospital)
-            {
-
+        // POST: Hospital/Edit/5
+        [HttpPost]
+        public IActionResult Edit(Hospital hospital)
+        {
+            
                 _unitOfWork.Hospitals.Update(hospital);
                 _unitOfWork.Save();
+
                 TempData["Update"] = "تم تحديث البيانات بنجاح";
-                return RedirectToAction("Index");
-            }
+             
+                 return RedirectToAction("Index");
 
-
-        [HttpGet]
-        public IActionResult Delete(int Id)
-        {
-            var Disa = _unitOfWork.Hospitals.FindById(Id);
-
-            return View(Disa);
         }
 
+        // GET: Hospital/Delete/5
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var hospital = _unitOfWork.Hospitals.FindById(id);
+           
+            return View(hospital);
+        }
 
         [HttpPost]
-        public IActionResult Deletepost(int Id)
+        public IActionResult DeletePost(int id)
         {
-            var Disa = _unitOfWork.Hospitals.FindById(Id);
-            _unitOfWork.Hospitals.Delete(Disa);
-            _unitOfWork.Save();
-            TempData["Remove"] = "تم حذف البيانات بنجاح";
-            return RedirectToAction("Index");
+            var hospital = _unitOfWork.Hospitals.FindById(id);
 
+            _unitOfWork.Hospitals.Delete(hospital);
+            _unitOfWork.Save();
+
+            TempData["Delete"] = "تم حذف البيانات بنجاح";
+            return RedirectToAction("Index");
         }
     }
-    } 
+}

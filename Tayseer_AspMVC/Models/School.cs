@@ -1,15 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Tayseer_AspMVC.Migrations;
 
 namespace Tayseer_AspMVC.Models
 {
-    public class Disability
+    public class School
     {
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
 
+        public string Gender { get; set; }
+
+        public string Stages { get; set; }
+
       
     }
 }
-

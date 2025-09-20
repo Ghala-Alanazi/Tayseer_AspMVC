@@ -1,0 +1,39 @@
+﻿@model IEnumerable< Tayseer_AspMVC.Models.School>
+
+@{
+    ViewData["Title"] = "قائمة المدارس";
+}
+
+<h1>قائمة المدارس</h1>
+<partial name="_NotificationsPartial" />
+<div class="text-end">
+    <a asp-action="Create" class="btn btn-primary mb-3">Create New</a>
+</div>
+
+
+
+<table class="table table-striped mb-3">
+    <thead>
+        <tr>
+            <th>الاسم</th>
+            <th>الجنس</th>
+            <th>المرحلة</th>
+            <th>الخيارات</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var school in Model)
+        {
+           
+            <tr>
+                <td>@school.Name</td>
+                <td>@school.Gender</td>
+                <td>@school.Stages</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@school.Id" class="btn btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@school.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
