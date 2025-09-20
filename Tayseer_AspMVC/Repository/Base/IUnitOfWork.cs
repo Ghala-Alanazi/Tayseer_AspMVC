@@ -9,7 +9,9 @@ namespace Tayseer_AspMVC.Repository.Base
         IRepository<Disability> Disabilitys { get; }
         IRepository<Hospital> Hospitals { get; }
         IRepoSchool Schools { get; }
-      
+        IRepoEmployee Employees { get; }
+        IRepository<Centers> Centers { get; }
+
         void Save();
     }
 }

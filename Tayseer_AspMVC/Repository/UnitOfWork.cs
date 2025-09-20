@@ -15,19 +15,19 @@ namespace Tayseer_AspMVC.Repository
             _context = context;
             Disabilitys = new MainRepository<Disability>(_context);
             Hospitals = new MainRepository<Hospital>(_context);
-            RoposHospital = new RoposHospital(_context);
+          
             Schools = new RepoSchool(_context);
-      
+            Employees = new RepoEmployee(_context);
+            Centers = new MainRepository<Centers>(_context);
 
 
         }
         public IRepository<Disability> Disabilitys { get; set; }
         public IRepository<Hospital> Hospitals { get; set; }
-
-        public IRoposHospital RoposHospital { get; }
         public IRepoSchool Schools { get; }
+        public IRepoEmployee Employees { get; }
+        public IRepository<Centers> Centers { get; set; }
 
-       
         public void Save()
         {
             _context.SaveChanges();

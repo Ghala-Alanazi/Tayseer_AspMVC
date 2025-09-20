@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Centers>
+@{
+    ViewData["Title"] = "Centers List";
+}
+
+<h1>Centers List</h1>
+<partial name="_NotificationsPartial" />
+<div class="text-end">
+    <a asp-action="Create" class="btn btn-primary mb-3">Create New</a>
+</div>
+
+<table class="table table-striped mb-3">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Services</th>
+            <th>Image</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var center in Model)
+        {
+            <tr>
+                <td>@center.Id</td>
+                <td>@center.Name</td>
+                <td>@center.Gender</td>
+                <td>@center.Services</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(center.ImageUrl))
+                    {
+                        <img src="@center.ImageUrl" alt="Image" width="80" height="60" class="img-thumbnail" />
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-Id="@center.Id" class="btn btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-Id="@center.Id" class="btn btn-danger"
+                       onclick="return confirm('هل أنت متأكد من حذف هذا المركز؟');">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

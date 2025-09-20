@@ -12,6 +12,10 @@ namespace Tayseer_AspMVC.Data
         public virtual DbSet<Disability> Disabilities { get; set; }
         public virtual DbSet<Hospital> Hospitals { get; set; }
         public virtual DbSet<School> Schools { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
+       
+        public virtual DbSet<UserRole> UserRoles { get; set; }
+        public virtual DbSet<Centers> Centers { get; set; }
 
 
     }
