@@ -6,35 +6,38 @@
 
 <h2>تعديل بيانات المدرسة</h2>
 
-<form asp-action="Edit" method="post">
-    <input type="hidden" asp-for="Id" />
+<form asp-action="Edit" method="post" enctype=" multipart /form-data">
 
-    <div class="mb-3">
-        <label>اسم المدرسة:</label>
-        <input asp-for="Name" class="form-control" />
-    </div>
+   
+        @Html.AntiForgeryToken()
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Gender" class="form-label"></label>
+            <select asp-for="Gender" class="form-control">
+                <option value="">-- اختر --</option>
+                <option value="بنين">بنين</option>
+                <option value="بنات">بنات</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Stages" class="form-label"></label>
+            <select asp-for="Stages" class="form-control">
+                <option value="">-- اختر --</option>
+                <option value="ابتدائي">ابتدائي</option>
+                <option value="متوسط">متوسط</option>
+                <option value="ثانوي">ثانوي</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label>صورة المدرسة</label>
+            <input asp-for="ImageFile" type="file" class="form-control" />
+        <img src="@Model.ImageUrl" width="120" class="mt-2 img-thumbnail" />
 
-    <div class="mb-3">
-        <label>الجنس:</label>
-        <select asp-for="Gender" class="form-control">
-            <option value="بنين">بنين</option>
-            <option value="بنات">بنات</option>
-
-        </select>
-    </div>
-
-    <div class="mb-3">
-        <label>المرحلة:</label>
-        <select asp-for="Stages" class="form-control">
-            <option value="ابتدائي">ابتدائي</option>
-            <option value="متوسط">متوسط</option>
-            <option value="ثانوي">ثانوي</option>
-        </select>
-    </div>
-
-    
-    
-
+        </div>
+     
     <button type="submit" class="btn btn-primary">حفظ التعديلات</button>
     <a asp-action="Index" class="btn btn-secondary">إلغاء</a>
 </form>

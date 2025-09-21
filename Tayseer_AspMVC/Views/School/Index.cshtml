@@ -1,4 +1,5 @@
-﻿@model IEnumerable< Tayseer_AspMVC.Models.School>
+﻿@using System.Diagnostics.Metrics
+@model IEnumerable< Tayseer_AspMVC.Models.School>
 
 @{
     ViewData["Title"] = "قائمة المدارس";
@@ -18,6 +19,7 @@
             <th>الاسم</th>
             <th>الجنس</th>
             <th>المرحلة</th>
+            <th>الصوره</th>
             <th>الخيارات</th>
         </tr>
     </thead>
@@ -29,6 +31,12 @@
                 <td>@school.Name</td>
                 <td>@school.Gender</td>
                 <td>@school.Stages</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(school.ImageUrl))
+                    {
+                        <img src="@school.ImageUrl" alt="Image" width="80" height="60" class="img-thumbnail" />
+                    }
+                </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@school.Id" class="btn btn-warning">Edit</a>
                     <a asp-action="Delete" asp-route-id="@school.Id" class="btn btn-danger">Delete</a>
