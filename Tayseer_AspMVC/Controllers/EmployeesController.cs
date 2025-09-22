@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Tayseer_AspMVC.Repository.Base;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Tayseer_AspMVC.Models;
+using Tayseer_AspMVC.Repository.Base;
 
 
 namespace Tayseer_AspMVC.Controllers
@@ -19,7 +20,8 @@ namespace Tayseer_AspMVC.Controllers
             public IActionResult Index()
             {
                 var employees = _unitOfWork.Employees.FindAllEmployee();
-                if (employees.Any())
+                CreateUserRoleSelectList();
+            if (employees.Any())
                 {
                     TempData["Sucees"] = "تم جلب البيانات بنجاح";
                 }
@@ -30,9 +32,22 @@ namespace Tayseer_AspMVC.Controllers
                 return View(employees);
             }
 
-            [HttpGet]
+
+        private void CreateUserRoleSelectList()
+        {
+
+
+            IEnumerable<UserRole> UserRoles = _unitOfWork.UserRoles.FindAll();
+
+            SelectList selectListItems = new SelectList(UserRoles, "Id", "Name", 0);
+            ViewBag.UserRoles = selectListItems;
+
+        }
+
+        [HttpGet]
             public IActionResult Create()
             {
+            CreateUserRoleSelectList();
                 return View();
             }
 
@@ -52,8 +67,8 @@ namespace Tayseer_AspMVC.Controllers
             public IActionResult Edit(int Id)
             {
                 var cate = _unitOfWork.Employees.FindById(Id);
-
-                return View(cate);
+                CreateUserRoleSelectList();
+            return View(cate);
             }
 
 
@@ -72,8 +87,8 @@ namespace Tayseer_AspMVC.Controllers
             public IActionResult Delete(int Id)
             {
                 var cate = _unitOfWork.Employees.FindById(Id);
-
-                return View(cate);
+                 CreateUserRoleSelectList();
+            return View(cate);
             }
 
 

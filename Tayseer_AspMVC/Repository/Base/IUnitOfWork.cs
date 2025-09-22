@@ -11,6 +11,7 @@ namespace Tayseer_AspMVC.Repository.Base
         IRepoSchool Schools { get; }
         IRepoEmployee Employees { get; }
         IRepository<Centers> Centers { get; }
+        IRepository<UserRole> UserRoles { get; }
 
         void Save();
     }

@@ -19,6 +19,7 @@ namespace Tayseer_AspMVC.Repository
             Schools = new RepoSchool(_context);
             Employees = new RepoEmployee(_context);
             Centers = new MainRepository<Centers>(_context);
+            UserRoles = new MainRepository<UserRole>(_context);
 
 
         }
@@ -27,6 +28,7 @@ namespace Tayseer_AspMVC.Repository
         public IRepoSchool Schools { get; }
         public IRepoEmployee Employees { get; }
         public IRepository<Centers> Centers { get; set; }
+        public IRepository<UserRole> UserRoles { get; set; }
 
         public void Save()
         {
