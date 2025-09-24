@@ -16,8 +16,23 @@ namespace Tayseer_AspMVC.Repository
             _context = context;
         }
 
-       
 
-      
+
+        public IEnumerable<DisabilityHospital> DisabilityHospital()
+        {
+
+            var disability =_context.DisabilityHospitals
+                .Include(x => x.Hospital)
+                .Include(x => x.Disability)
+                .ToList();
+            return disability;
+
+
+        }
+
+
+
+
+
     }
 }

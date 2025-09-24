@@ -20,11 +20,14 @@ namespace Tayseer_AspMVC.Repository
             Employees = new RepoEmployee(_context);
             Centers = new MainRepository<Centers>(_context);
             UserRoles = new MainRepository<UserRole>(_context);
+            roposHospital = new RoposHospital(_context);
 
 
         }
         public IRepository<Disability> Disabilitys { get; set; }
         public IRepository<Hospital> Hospitals { get; set; }
+
+        public  IRoposHospital roposHospital { get; set; }
         public IRepoSchool Schools { get; }
         public IRepoEmployee Employees { get; }
         public IRepository<Centers> Centers { get; set; }

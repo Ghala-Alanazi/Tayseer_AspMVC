@@ -19,6 +19,18 @@ namespace Tayseer_AspMVC.Controllers
             _roposHospital = hospitalRepo;
         }
 
+
+
+
+        public IActionResult DisabilityHospital()
+        {
+            var Disability = _unitOfWork.roposHospital.DisabilityHospital();
+
+            return View(Disability);
+        }
+
+
+
         // GET: Hospital
         [HttpGet]
         public IActionResult Index()
