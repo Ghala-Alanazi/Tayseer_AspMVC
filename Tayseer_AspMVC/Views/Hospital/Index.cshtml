@@ -14,9 +14,9 @@
         <tr>
             <th>#</th>
             <th>Name</th>
-        
             <th>Address</th>
             <th>Services</th>
+            <th>Image</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -29,6 +29,12 @@
               
                 <td>@hospital.Address</td>
                 <td>@hospital.Services</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(hospital.ImageUrl))
+                    {
+                        <img src="@hospital.ImageUrl" alt="Image" width="80" height="60" class="img-thumbnail" />
+                    }
+                </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@hospital.Id" class="btn btn-warning">Edit</a>
                     <a asp-action="Delete" asp-route-id="@hospital.Id" class="btn btn-danger">Delete</a>

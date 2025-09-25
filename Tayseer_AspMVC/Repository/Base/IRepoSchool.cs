@@ -4,6 +4,6 @@ namespace Tayseer_AspMVC.Repository.Base
 {
     public interface IRepoSchool : IRepository<School>
     {
-       
+        IEnumerable<DisabilitySchool> DisabilitySchool();
     }
 }

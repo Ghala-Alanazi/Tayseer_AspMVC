@@ -8,12 +8,24 @@ namespace Tayseer_AspMVC.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
+        private readonly IRepoSchool _repoSchool;
 
-        public SchoolController(IUnitOfWork unitOfWork, IWebHostEnvironment env)
+
+        public SchoolController(IUnitOfWork unitOfWork, IWebHostEnvironment env, IRepoSchool repoSchool)
         {
             _unitOfWork = unitOfWork;
             _env = env;
+            _repoSchool = repoSchool;
         }
+
+
+        public IActionResult DisabilitySchool()
+        {
+            var Disability = _unitOfWork.Schools.DisabilitySchool();
+
+            return View(Disability);
+        }
+
 
         public IActionResult Index()
         {

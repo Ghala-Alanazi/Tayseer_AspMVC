@@ -1,0 +1,45 @@
+﻿@model Tayseer_AspMVC.Models.DisabilityHospital
+
+@{
+    ViewData["Title"] = "Create DisabilityHospital";
+}
+
+<h1>Create DisabilityHospital</h1>
+
+<h4>اربط مستشفى مع اعاقة</h4>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="CreateDisabilityHospital" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="HospitalId" class="control-label">المستشفى</label>
+                <select asp-for="HospitalId" class="form-control" asp-items="ViewBag.Hospitals">
+                    <option value="">-- اختر المستشفى --</option>
+                </select>
+                <span asp-validation-for="HospitalId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="DisabilityId" class="control-label">الاعاقة</label>
+                <select asp-for="DisabilityId" class="form-control" asp-items="ViewBag.Disabilities">
+                    <option value="">-- اختر الاعاقة --</option>
+                </select>
+                <span asp-validation-for="DisabilityId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="حفظ" class="btn btn-primary" />
+                <a asp-action="DisabilityHospital" class="btn btn-secondary">رجوع للقائمة</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

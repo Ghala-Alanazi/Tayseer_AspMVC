@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tayseer_AspMVC.Data;
 
@@ -11,9 +12,11 @@ using Tayseer_AspMVC.Data;
 namespace Tayseer_AspMVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250924220503_addDisaSchool")]
+    partial class addDisaSchool
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,7 +50,7 @@ namespace Tayseer_AspMVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Centers", (string)null);
+                    b.ToTable("Centers");
                 });
 
             modelBuilder.Entity("Tayseer_AspMVC.Models.Disability", b =>
@@ -64,7 +67,7 @@ namespace Tayseer_AspMVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Disabilities", (string)null);
+                    b.ToTable("Disabilities");
                 });
 
             modelBuilder.Entity("Tayseer_AspMVC.Models.DisabilityHospital", b =>
@@ -87,7 +90,7 @@ namespace Tayseer_AspMVC.Migrations
 
                     b.HasIndex("HospitalId");
 
-                    b.ToTable("DisabilityHospitals", (string)null);
+                    b.ToTable("DisabilityHospitals");
                 });
 
             modelBuilder.Entity("Tayseer_AspMVC.Models.DisabilitySchool", b =>
@@ -110,7 +113,7 @@ namespace Tayseer_AspMVC.Migrations
 
                     b.HasIndex("SchoolId");
 
-                    b.ToTable("DisabilitySchools", (string)null);
+                    b.ToTable("DisabilitySchools");
                 });
 
             modelBuilder.Entity("Tayseer_AspMVC.Models.Employee", b =>
@@ -166,7 +169,7 @@ namespace Tayseer_AspMVC.Migrations
 
                     b.HasIndex("UserRoleId");
 
-                    b.ToTable("Employees", (string)null);
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("Tayseer_AspMVC.Models.Hospital", b =>
@@ -194,7 +197,7 @@ namespace Tayseer_AspMVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Hospitals", (string)null);
+                    b.ToTable("Hospitals");
                 });
 
             modelBuilder.Entity("Tayseer_AspMVC.Models.School", b =>
@@ -222,7 +225,7 @@ namespace Tayseer_AspMVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Schools", (string)null);
+                    b.ToTable("Schools");
                 });
 
             modelBuilder.Entity("Tayseer_AspMVC.Models.UserRole", b =>
@@ -239,7 +242,7 @@ namespace Tayseer_AspMVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserRoles", (string)null);
+                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("Tayseer_AspMVC.Models.DisabilityHospital", b =>

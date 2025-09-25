@@ -5,7 +5,7 @@
 
 <h1>Create Hospital</h1>
 
-<form asp-action="Create" method="post">
+<form asp-action="Create" method="post" enctype="multipart/form-data">
     <div class="mb-3">
         <label asp-for="Name" class="form-label"></label>
         <input asp-for="Name" class="form-control" />
@@ -24,7 +24,10 @@
         <span asp-validation-for="Services" class="text-danger"></span>
     </div>
 
-    
+    <div class="mb-3">
+        <label for="ImageFile">Center Image</label>
+        <input type="file" id="ImageFile" name="ImageFile" class="form-control" accept=".jpg,.jpeg,.png,.gif,.webp" />
+    </div>
 
     <hr />
     <button type="submit" class="btn btn-primary">Save</button>

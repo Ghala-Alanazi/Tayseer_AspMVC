@@ -5,7 +5,7 @@
 
 <h1>Edit</h1>
 
-<form asp-action="Edit" method="post">
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
     <input asp-for="Id" hidden />
 
     <div>
@@ -23,7 +23,14 @@
         <input asp-for="Services" class="form-control" />
     </div>
 
-
+    <div class="mb-3">
+        <label>Image:</label>
+        <input asp-for="ImageFile" type="file" class="form-control" />
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <img src="@Model.ImageUrl" alt="Image" width="120" class="mt-2 img-thumbnail" />
+        }
+    </div>
    
 
     <hr />

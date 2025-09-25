@@ -8,10 +8,9 @@ namespace Tayseer_AspMVC.Models
         public string Name { get; set; }
         public string Address { get; set; }
         public string Services { get; set; }
-      
 
-        // المستخدم يحدد إعاقات متعددة
         [NotMapped]
-        public List<int> SelectedDisabilityIds { get; set; } = new List<int>();
+        public IFormFile? ImageFile { get; set; }
+        public string? ImageUrl { get; set; }
     }
 }

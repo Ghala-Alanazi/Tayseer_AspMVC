@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Tayseer_AspMVC.Models;
-using Tayseer_AspMVC.Repository.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Tayseer_AspMVC.Models;
+using Tayseer_AspMVC.Repository;
+using Tayseer_AspMVC.Repository.Base;
 
 namespace Tayseer_AspMVC.Controllers
 {
@@ -12,22 +13,92 @@ namespace Tayseer_AspMVC.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IRoposHospital _roposHospital;
+        private readonly IWebHostEnvironment _env;
 
-        public HospitalController(IUnitOfWork unitOfWork, IRoposHospital hospitalRepo)
+        public HospitalController(IUnitOfWork unitOfWork, IRoposHospital hospitalRepo, IWebHostEnvironment env)
         {
             _unitOfWork = unitOfWork;
             _roposHospital = hospitalRepo;
+            _env = env;
         }
 
 
 
 
-        public IActionResult DisabilityHospital()
+        private string? SaveImage(IFormFile? file)
         {
-            var Disability = _unitOfWork.roposHospital.DisabilityHospital();
+            if (file == null || file.Length == 0) return null;
 
-            return View(Disability);
+            var allowed = new[] { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
+            var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
+            if (!allowed.Contains(ext))
+                throw new InvalidOperationException("امتداد الملف غير مسموح");
+
+            var folder = Path.Combine("uploads", "Hospital");
+            var rootFolder = Path.Combine(_env.WebRootPath, folder);
+            Directory.CreateDirectory(rootFolder);
+
+            var fileName = $"{Guid.NewGuid():N}{ext}";
+            var fullPath = Path.Combine(rootFolder, fileName);
+
+            using (var stream = System.IO.File.Create(fullPath))
+            {
+                file.CopyTo(stream);
+            }
+
+            var relativePath = Path.Combine(folder, fileName).Replace('\\', '/');
+            return "/" + relativePath;
         }
+
+        private void DeleteImageIfExists(string? relativePath)
+        {
+            if (string.IsNullOrWhiteSpace(relativePath)) return;
+
+            var fullPath = Path.Combine(_env.WebRootPath, relativePath.TrimStart('/').Replace('/', Path.DirectorySeparatorChar));
+            if (System.IO.File.Exists(fullPath))
+            {
+                System.IO.File.Delete(fullPath);
+            }
+        }
+
+       
+              public IActionResult DisabilityHospital()
+        {
+            var disabilityHospitals = _unitOfWork.roposHospital.DisabilityHospital(); 
+            return View(disabilityHospitals);
+        }
+
+        public IActionResult CreateDisabilityHospital()
+        {
+            // نجيب المستشفيات والإعاقات من قاعدة البيانات
+            ViewBag.Hospitals = new SelectList(_unitOfWork.Hospitals.FindAll(), "Id", "Name");
+            ViewBag.Disabilities = new SelectList(_unitOfWork.Disabilitys.FindAll(), "Id", "Name");
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateDisabilityHospital(DisabilityHospital disabilityHospital)
+        {
+            if (ModelState.IsValid)
+            {
+                _unitOfWork.DisabilityHospitals.Add(disabilityHospital);
+                _unitOfWork.Save();
+
+                TempData["Add"] = "تم اضافة البيانات بنجاح";
+                return RedirectToAction(nameof(DisabilityHospital));
+            }
+
+            // لو فيه خطأ نرجع القوائم
+            ViewBag.Hospitals = new SelectList(_unitOfWork.Hospitals.FindAll(), "Id", "Name", disabilityHospital.HospitalId);
+            ViewBag.Disabilities = new SelectList(_unitOfWork.Disabilitys.FindAll(), "Id", "Name", disabilityHospital.DisabilityId);
+
+            return View(disabilityHospital);
+        }
+
+
+
 
 
 
@@ -56,8 +127,14 @@ namespace Tayseer_AspMVC.Controllers
         [HttpPost]
         public IActionResult Create(Hospital hospital)
         {
-          
-
+            if (ModelState.IsValid)
+            {
+                if (hospital.ImageFile != null)
+                {
+                    var imagePath = SaveImage(hospital.ImageFile);
+                    hospital.ImageUrl = imagePath;
+                }
+            }
                 _unitOfWork.Hospitals.Add(hospital);
                 _unitOfWork.Save();
 
@@ -72,21 +149,35 @@ namespace Tayseer_AspMVC.Controllers
         public IActionResult Edit(int id)
         {
             var hospital = _roposHospital.FindById(id);
-           
             return View(hospital);
+
         }
 
         // POST: Hospital/Edit/5
         [HttpPost]
         public IActionResult Edit(Hospital hospital)
         {
-            
-                _unitOfWork.Hospitals.Update(hospital);
-                _unitOfWork.Save();
+            var exist = _unitOfWork.Hospitals.FindById(hospital.Id);
+            if (exist == null) return NotFound();
 
-                TempData["Update"] = "تم تحديث البيانات بنجاح";
-             
-                 return RedirectToAction("Index");
+            // عدل القيم
+            exist.Name = hospital.Name;
+            exist.Address = hospital.Address;
+            exist.Services = hospital.Services;
+
+            if (hospital.ImageFile != null)
+            {
+                // حذف الصورة القديمة إذا موجودة
+                DeleteImageIfExists(exist.ImageUrl);
+
+                // حفظ الصورة الجديدة
+                exist.ImageUrl = SaveImage(hospital.ImageFile);
+            }
+
+            _unitOfWork.Save();
+
+            TempData["Update"] = "تم تحديث بيانات المركز بنجاح";
+            return RedirectToAction("Index");
 
         }
 
@@ -103,7 +194,7 @@ namespace Tayseer_AspMVC.Controllers
         public IActionResult DeletePost(int id)
         {
             var hospital = _unitOfWork.Hospitals.FindById(id);
-
+            DeleteImageIfExists(hospital.ImageUrl);
             _unitOfWork.Hospitals.Delete(hospital);
             _unitOfWork.Save();
 

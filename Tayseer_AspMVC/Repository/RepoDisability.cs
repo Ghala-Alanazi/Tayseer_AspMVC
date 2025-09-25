@@ -5,30 +5,28 @@ using Tayseer_AspMVC.Repository.Base;
 
 namespace Tayseer_AspMVC.Repository
 {
-    public class RepoSchool : MainRepository<School>, IRepoSchool
+    public class RepoDisability : MainRepository<Disability>, IRepoDisability
     {
-
         private readonly ApplicationDbContext _context;
 
-        public RepoSchool(ApplicationDbContext context) : base(context)
+        public RepoDisability(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }
 
 
 
-        public IEnumerable<DisabilitySchool> DisabilitySchool()
+        public IEnumerable<Disability> Disability()
         {
 
-            var disability = _context.DisabilitySchools
-                .Include(x => x.School)
+            var disability = _context.DisabilityHospitals
+                .Include(x => x.Hospital)
                 .Include(x => x.Disability)
                 .ToList();
-            return disability;
+            return (IEnumerable<Disability>)disability;
 
 
         }
-
 
     }
 }
