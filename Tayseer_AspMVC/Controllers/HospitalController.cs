@@ -23,7 +23,8 @@ namespace Tayseer_AspMVC.Controllers
         }
 
 
-
+        //-----------------------------------------------------------------------------------------------------------------------
+        // Image
 
         private string? SaveImage(IFormFile? file)
         {
@@ -61,8 +62,11 @@ namespace Tayseer_AspMVC.Controllers
             }
         }
 
-       
-      public IActionResult DisabilityHospital()
+
+
+        //-----------------------------------------------------------------------------------------------------------------------
+        // Disability Hospital
+        public IActionResult DisabilityHospital()
         {
             var disabilityHospitals = _unitOfWork.roposHospital.DisabilityHospital(); 
             return View(disabilityHospitals);
