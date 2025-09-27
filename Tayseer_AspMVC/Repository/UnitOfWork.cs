@@ -22,6 +22,7 @@ namespace Tayseer_AspMVC.Repository
             UserRoles = new MainRepository<UserRole>(_context);
             roposHospital = new RoposHospital(_context);
             DisabilityHospitals = new MainRepository<DisabilityHospital>(_context);
+            DisabilitySchools = new MainRepository<DisabilitySchool>(_context);
 
 
 
@@ -37,7 +38,7 @@ namespace Tayseer_AspMVC.Repository
         public IRepository<Centers> Centers { get; set; }
         public IRepository<UserRole> UserRoles { get; set; }
         public IRepository<DisabilityHospital> DisabilityHospitals { get; set; }
-
+        public IRepository<DisabilitySchool> DisabilitySchools { get; set; }
         public void Save()
         {
             _context.SaveChanges();

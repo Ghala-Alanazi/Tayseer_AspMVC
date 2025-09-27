@@ -66,6 +66,7 @@ namespace Tayseer_AspMVC.Controllers
 
         //-----------------------------------------------------------------------------------------------------------------------
         // Disability Hospital
+
         public IActionResult DisabilityHospital()
         {
             var disabilityHospitals = _unitOfWork.roposHospital.DisabilityHospital(); 
@@ -152,7 +153,9 @@ namespace Tayseer_AspMVC.Controllers
 
 
         //-----------------------------------------------------------------------------------------------------------------------
-        // GET: Hospital
+        //  Hospital
+
+
         [HttpGet]
         public IActionResult Index()
         {

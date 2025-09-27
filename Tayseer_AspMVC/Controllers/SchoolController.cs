@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Tayseer_AspMVC.Models;
 using Tayseer_AspMVC.Repository.Base;
 
@@ -19,6 +20,13 @@ namespace Tayseer_AspMVC.Controllers
         }
 
 
+
+
+
+
+        //-----------------------------------------------------------------------------------------------------------------------
+        // Disability School
+
         public IActionResult DisabilitySchool()
         {
             var Disability = _unitOfWork.Schools.DisabilitySchool();
@@ -26,12 +34,84 @@ namespace Tayseer_AspMVC.Controllers
             return View(Disability);
         }
 
-
-        public IActionResult Index()
+        public IActionResult CreateDisabilitySchool()
         {
-            var schools = _unitOfWork.Schools.FindAll();
-            return View(schools);
+            // نجيب المدارس والإعاقات من قاعدة البيانات
+            ViewBag.Schools = new SelectList(_unitOfWork.Schools.FindAll(), "Id", "Name");
+            ViewBag.Disabilities = new SelectList(_unitOfWork.Disabilitys.FindAll(), "Id", "Name");
+
+            return View();
         }
+
+        [HttpPost]
+        public IActionResult CreateDisabilitySchool(DisabilitySchool disabilitySchool)
+        {
+            if (ModelState.IsValid)
+            {
+                _unitOfWork.DisabilitySchools.Add(disabilitySchool);
+                _unitOfWork.Save();
+
+                TempData["Add"] = "تم اضافة البيانات بنجاح";
+                return RedirectToAction(nameof(DisabilitySchool));
+            }
+
+            // لو فيه خطأ نرجع القوائم
+            ViewBag.Schools = new SelectList(_unitOfWork.Schools.FindAll(), "Id", "Name", disabilitySchool.SchoolId);
+            ViewBag.Disabilities = new SelectList(_unitOfWork.Disabilitys.FindAll(), "Id", "Name", disabilitySchool.DisabilityId);
+
+            return View(disabilitySchool);
+        }
+
+        public IActionResult EditDisabilitySchool(int id)
+        {
+            var disabilitySchool = _unitOfWork.DisabilitySchools.FindById(id);
+            ViewBag.Schools = new SelectList(_unitOfWork.Schools.FindAll(), "Id", "Name", disabilitySchool.SchoolId);
+            ViewBag.Disabilities = new SelectList(_unitOfWork.Disabilitys.FindAll(), "Id", "Name", disabilitySchool.DisabilityId);
+            return View(disabilitySchool);
+        }
+
+        [HttpPost]
+        public IActionResult EditDisabilitySchool(DisabilitySchool disabilitySchool)
+        {
+            if (ModelState.IsValid)
+            {
+                _unitOfWork.DisabilitySchools.Update(disabilitySchool);
+                _unitOfWork.Save();
+
+                TempData["Edit"] = "تم تعديل البيانات بنجاح";
+                return RedirectToAction(nameof(DisabilitySchool));
+            }
+
+            // لو فيه خطأ نرجع القوائم
+            ViewBag.Schools = new SelectList(_unitOfWork.Schools.FindAll(), "Id", "Name", disabilitySchool.SchoolId);
+            ViewBag.Disabilities = new SelectList(_unitOfWork.Disabilitys.FindAll(), "Id", "Name", disabilitySchool.DisabilityId);
+
+            return View(disabilitySchool);
+        }
+
+        public IActionResult DeleteDisabilitySchool(int id)
+        {
+            var disabilitySchool = _unitOfWork.DisabilitySchools.FindById(id);
+            ViewBag.Schools = new SelectList(_unitOfWork.Schools.FindAll(), "Id", "Name", disabilitySchool.SchoolId);
+            ViewBag.Disabilities = new SelectList(_unitOfWork.Disabilitys.FindAll(), "Id", "Name", disabilitySchool.DisabilityId);
+            return View(disabilitySchool);
+        }
+
+        [HttpPost]
+        public IActionResult DeletePostDisabilitySchool(int id)
+        {
+            var disabilitySchool = _unitOfWork.DisabilitySchools.FindById(id);
+            _unitOfWork.DisabilitySchools.Delete(disabilitySchool);
+            _unitOfWork.Save();
+
+            TempData["Delete"] = "تم حذف البيانات بنجاح";
+            return RedirectToAction(nameof(DisabilitySchool));
+        }
+
+
+
+        //-----------------------------------------------------------------------------------------------------------------------
+        // Images 
 
         private string? SaveImage(IFormFile? file)
         {
@@ -67,6 +147,23 @@ namespace Tayseer_AspMVC.Controllers
                 System.IO.File.Delete(fullPath);
             }
         }
+
+
+
+
+
+
+
+        //-----------------------------------------------------------------------------------------------------------------------
+        //  School
+
+        public IActionResult Index()
+        {
+            var schools = _unitOfWork.Schools.FindAll();
+            return View(schools);
+        }
+
+
 
         [HttpGet]
         public IActionResult Create() => View();

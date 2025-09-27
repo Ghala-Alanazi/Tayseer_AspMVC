@@ -4,13 +4,15 @@
     ViewData["Title"] = "DisabilitySchool";
 }
 
-<h1>DisabilitySchool</h1>
+<h1>Disability School</h1>
 
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<partial name="_NotificationsPartial" />
+<div class="text-end">
+    <a asp-action="CreateDisabilitySchool" class="btn btn-primary mb-3">Create New</a>
+</div>
+
+<table class="table table-striped mb-3">
     <thead>
         <tr>
             <th>Id</th>
@@ -27,9 +29,8 @@
                 <td>@item.School.Name</td>
                 <td>@item.Disability.Name</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="EditDisabilitySchool" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                    <a asp-action="DeleteDisabilitySchool" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }

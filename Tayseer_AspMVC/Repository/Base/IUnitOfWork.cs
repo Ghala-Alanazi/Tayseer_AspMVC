@@ -19,6 +19,7 @@ namespace Tayseer_AspMVC.Repository.Base
         IRepository<UserRole> UserRoles { get; }
 
        IRepository<DisabilityHospital> DisabilityHospitals { get; }
+        IRepository<DisabilitySchool> DisabilitySchools { get; set; }
 
         void Save();
     }
