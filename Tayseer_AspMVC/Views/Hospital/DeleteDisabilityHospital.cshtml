@@ -1,0 +1,28 @@
+﻿@model Tayseer_AspMVC.Models.DisabilityHospital
+@{
+    ViewData["Title"] = "DeleteDisabilityHospital";
+}
+
+<h1>DeleteDisabilityHospital</h1>
+
+
+<form asp-action="DeletePostDisabilityHospital" method="post">
+    <input asp-for="Id" hidden />
+<hr />
+<div class="form-group mb-3">
+    <label asp-for="HospitalId" class="control-label">المستشفى</label>
+    <select asp-for="HospitalId" class="form-control" asp-items="ViewBag.Hospitals"></select>
+    <span asp-validation-for="HospitalId" class="text-danger"></span>
+</div>
+
+<div class="form-group mb-3">
+    <label asp-for="DisabilityId" class="control-label">الاعاقة</label>
+    <select asp-for="DisabilityId" class="form-control" asp-items="ViewBag.Disabilities"></select>
+    <span asp-validation-for="DisabilityId" class="text-danger"></span>
+</div>
+
+
+
+    <button type="submit" class="btn btn-danger">تأكيد الحذف</button>
+    <a asp-action="DisabilityHospital" class="btn btn-secondary">إلغاء</a>
+</form>

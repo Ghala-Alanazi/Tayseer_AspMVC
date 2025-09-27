@@ -62,7 +62,7 @@ namespace Tayseer_AspMVC.Controllers
         }
 
        
-              public IActionResult DisabilityHospital()
+      public IActionResult DisabilityHospital()
         {
             var disabilityHospitals = _unitOfWork.roposHospital.DisabilityHospital(); 
             return View(disabilityHospitals);
@@ -78,7 +78,7 @@ namespace Tayseer_AspMVC.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+      
         public IActionResult CreateDisabilityHospital(DisabilityHospital disabilityHospital)
         {
             if (ModelState.IsValid)
@@ -98,10 +98,56 @@ namespace Tayseer_AspMVC.Controllers
         }
 
 
+        public IActionResult EditDisabilityHospital(int id)
+        {
+            var disabilityHospital = _unitOfWork.DisabilityHospitals.FindById(id);
+            ViewBag.Hospitals = new SelectList(_unitOfWork.Hospitals.FindAll(), "Id", "Name", disabilityHospital.HospitalId);
+            ViewBag.Disabilities = new SelectList(_unitOfWork.Disabilitys.FindAll(), "Id", "Name", disabilityHospital.DisabilityId);
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult EditDisabilityHospital(DisabilityHospital disabilityHospital)
+        {
+            if (ModelState.IsValid)
+            {
+                _unitOfWork.DisabilityHospitals.Update(disabilityHospital);
+                _unitOfWork.Save();
+
+                TempData["Edit"] = "تم تعديل البيانات بنجاح";
+                return RedirectToAction(nameof(DisabilityHospital));
+            }
+
+            // لو فيه خطأ نرجع القوائم
+            ViewBag.Hospitals = new SelectList(_unitOfWork.Hospitals.FindAll(), "Id", "Name", disabilityHospital.HospitalId);
+            ViewBag.Disabilities = new SelectList(_unitOfWork.Disabilitys.FindAll(), "Id", "Name", disabilityHospital.DisabilityId);
+
+            return View(disabilityHospital);
+        }
+
+
+        public IActionResult DeleteDisabilityHospital(int id)
+        {
+            var disabilityHospital = _unitOfWork.DisabilityHospitals.FindById(id);
+            ViewBag.Hospitals = new SelectList(_unitOfWork.Hospitals.FindAll(), "Id", "Name", disabilityHospital.HospitalId);
+            ViewBag.Disabilities = new SelectList(_unitOfWork.Disabilitys.FindAll(), "Id", "Name", disabilityHospital.DisabilityId);
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult DeletePostDisabilityHospital(int id)
+        {
+            var disabilityHospital = _unitOfWork.DisabilityHospitals.FindById(id);
+            _unitOfWork.DisabilityHospitals.Delete(disabilityHospital);
+            _unitOfWork.Save();
+
+            TempData["Delete"] = "تم حذف البيانات بنجاح";
+            return RedirectToAction(nameof(DisabilityHospital));
+        }
 
 
 
-
+        //-----------------------------------------------------------------------------------------------------------------------
         // GET: Hospital
         [HttpGet]
         public IActionResult Index()
@@ -144,7 +190,7 @@ namespace Tayseer_AspMVC.Controllers
            
         }
 
-        // GET: Hospital/Edit/5
+        // GET: Hospital/Edit
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -153,7 +199,7 @@ namespace Tayseer_AspMVC.Controllers
 
         }
 
-        // POST: Hospital/Edit/5
+        // POST: Hospital/Edit
         [HttpPost]
         public IActionResult Edit(Hospital hospital)
         {
@@ -181,7 +227,7 @@ namespace Tayseer_AspMVC.Controllers
 
         }
 
-        // GET: Hospital/Delete/5
+        // GET: Hospital/Delete
         [HttpGet]
         public IActionResult Delete(int id)
         {
