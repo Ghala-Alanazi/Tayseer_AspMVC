@@ -1,0 +1,37 @@
+﻿@model Tayseer_AspMVC.Models.DisabilityCenter
+@{
+    ViewData["Title"] = "CreateDisabilityCenter";
+}
+
+<h1>CreateDisabilityCenter</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="CreateDisabilityCenter" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="CentersId" class="control-label">المركز</label>
+                <select asp-for="CentersId" class="form-control" asp-items="ViewBag.Centers">
+                    <option value="">-- اختر المركز --</option>
+                </select>
+                <span asp-validation-for="CentersId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="DisabilityId" class="control-label">الاعاقة</label>
+                <select asp-for="DisabilityId" class="form-control" asp-items="ViewBag.Disabilities">
+                    <option value="">-- اختر الاعاقة --</option>
+                </select>
+                <span asp-validation-for="DisabilityId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="حفظ" class="btn btn-primary" />
+                <a asp-action="DisabilityCenter" class="btn btn-secondary">رجوع للقائمة</a>
+            </div>
+        </form>
+    </div>
+</div>

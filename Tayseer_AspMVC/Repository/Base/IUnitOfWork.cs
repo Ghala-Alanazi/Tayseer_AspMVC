@@ -11,15 +11,19 @@ namespace Tayseer_AspMVC.Repository.Base
         IRepository<Hospital> Hospitals { get; }
 
         IRoposHospital roposHospital { get; }
-        
+
+        IRepository<Centers> Centers { get; }
+
+        IRepoCenter RepoCenters { get; }
 
         IRepoSchool Schools { get; }
         IRepoEmployee Employees { get; }
-        IRepository<Centers> Centers { get; }
         IRepository<UserRole> UserRoles { get; }
 
        IRepository<DisabilityHospital> DisabilityHospitals { get; }
         IRepository<DisabilitySchool> DisabilitySchools { get; set; }
+
+        IRepository<DisabilityCenter> DisabilityCenters { get; set; }
 
         void Save();
     }

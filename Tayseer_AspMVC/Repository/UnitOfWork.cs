@@ -18,11 +18,13 @@ namespace Tayseer_AspMVC.Repository
           
             Schools = new RepoSchool(_context);
             Employees = new RepoEmployee(_context);
-            Centers = new MainRepository<Centers>(_context);
+            RepoCenters = new RepoCenter(_context);
             UserRoles = new MainRepository<UserRole>(_context);
             roposHospital = new RoposHospital(_context);
             DisabilityHospitals = new MainRepository<DisabilityHospital>(_context);
             DisabilitySchools = new MainRepository<DisabilitySchool>(_context);
+            DisabilityCenters = new MainRepository<DisabilityCenter>(_context);
+            Centers = new MainRepository<Centers>(_context);
 
 
 
@@ -31,14 +33,17 @@ namespace Tayseer_AspMVC.Repository
         public IRepository<Hospital> Hospitals { get; set; }
 
         public  IRoposHospital roposHospital { get; set; }
-
+          public IRepoCenter RepoCenters { get;  }
+        public IRepository<Centers> Centers { get; }
         public IRepoSchool Schools { get; }
 
+
         public IRepoEmployee Employees { get; }
-        public IRepository<Centers> Centers { get; set; }
+       
         public IRepository<UserRole> UserRoles { get; set; }
         public IRepository<DisabilityHospital> DisabilityHospitals { get; set; }
         public IRepository<DisabilitySchool> DisabilitySchools { get; set; }
+        public IRepository<DisabilityCenter> DisabilityCenters { get; set; }
         public void Save()
         {
             _context.SaveChanges();

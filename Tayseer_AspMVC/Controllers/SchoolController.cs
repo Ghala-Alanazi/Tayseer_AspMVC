@@ -224,9 +224,7 @@ namespace Tayseer_AspMVC.Controllers
             return View(school);
         }
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public IActionResult Deletepost(int id)
         {
             var school = _unitOfWork.Schools.FindById(id);
             if (school == null) return NotFound();

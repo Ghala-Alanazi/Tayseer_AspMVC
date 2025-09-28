@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Tayseer_AspMVC.Models.DisabilityCenter>
+@{
+    ViewData["Title"] = "DisabilityCenter";
+}
+
+<h1>DisabilityCenter</h1>
+
+<partial name="_NotificationsPartial" />
+<div class="text-end">
+    <a asp-action="CreateDisabilityCenter" class="btn btn-primary mb-3">Create New</a>
+</div>
+
+
+<table class="table table-striped mb-3">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Centers Name</th>
+            <th>Disability Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Centers.Name</td>
+                <td>@item.Disability.Name</td>
+                <td>
+                    <a asp-action="EditDisabilityCenter" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                    <a asp-action="DeleteDisabilityCenter" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
