@@ -20,6 +20,19 @@
 
         <dt class="col-sm-2">الجنس</dt>
         <dd class="col-sm-10">@Model.Gender</dd>
+            <div>
+                <label asp-for="Services"></label>
+                <input asp-for="Services" class="form-control" readonly />
+            </div>
+            <div>
+                <label asp-for="Region"></label>
+                <input asp-for="Region" class="form-control" asp-items="ViewBag.Regions" readonly></input>
+            </div>
+
+            <div>
+                <label asp-for="Address"> </label>
+                <input asp-for="Address" class="form-control" readonly />
+            </div>
 
         <dt class="col-sm-2">صورة المدرسة</dt>
         <dd class="col-sm-10">

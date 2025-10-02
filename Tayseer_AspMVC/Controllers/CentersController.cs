@@ -59,94 +59,24 @@ namespace Tayseer_AspMVC.Controllers
         }
 
 
-        //-----------------------------------------------------------------------------------------------------------------------
-        // Disability Center
-
-        public IActionResult DisabilityCenter()
-        {
-            var disabilityCenters = _unitOfWork.RepoCenters.DisabilityCenter();
-            return View(disabilityCenters);
-        }
-
-        public IActionResult CreateDisabilityCenter()
-        {
-            // نجيب المراكز والإعاقات من قاعدة البيانات
-            ViewBag.Centers = new SelectList(_unitOfWork.Centers.FindAll(), "Id", "Name");
-            ViewBag.Disabilities = new SelectList(_unitOfWork.Disabilitys.FindAll(), "Id", "Name");
-
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult CreateDisabilityCenter(DisabilityCenter disabilityCenter)
-        {
-            if (ModelState.IsValid)
-            {
-                _unitOfWork.DisabilityCenters.Add(disabilityCenter);
-                _unitOfWork.Save();
-
-                TempData["Add"] = "تم اضافة البيانات بنجاح";
-                return RedirectToAction(nameof(DisabilityCenter));
-            }
-
-            // لو فيه خطأ نرجع القوائم
-            ViewBag.Centers = new SelectList(_unitOfWork.Centers.FindAll(), "Id", "Name", disabilityCenter.CentersId);
-            ViewBag.Disabilities = new SelectList(_unitOfWork.Disabilitys.FindAll(), "Id", "Name", disabilityCenter.DisabilityId);
-
-            return View(disabilityCenter);
-        }
-
-
-        public IActionResult EditDisabilityCenter(int id)
-        {
-            var disabilityCenter = _unitOfWork.DisabilityCenters.FindById(id);
-            ViewBag.Centers = new SelectList(_unitOfWork.Centers.FindAll(), "Id", "Name", disabilityCenter.CentersId);
-            ViewBag.Disabilities = new SelectList(_unitOfWork.Disabilitys.FindAll(), "Id", "Name", disabilityCenter.DisabilityId);
-            return View(disabilityCenter);
-        }
-
-        [HttpPost]
-        public IActionResult EditDisabilityCenter(DisabilityCenter disabilityCenter)
-        {
-            if (ModelState.IsValid)
-            {
-                _unitOfWork.DisabilityCenters.Update(disabilityCenter);
-                _unitOfWork.Save();
-
-                TempData["Edit"] = "تم تعديل البيانات بنجاح";
-                return RedirectToAction(nameof(DisabilityCenter));
-            }
-
-            // لو فيه خطأ نرجع القوائم
-            ViewBag.Centers = new SelectList(_unitOfWork.Centers.FindAll(), "Id", "Name", disabilityCenter.CentersId);
-            ViewBag.Disabilities = new SelectList(_unitOfWork.Disabilitys.FindAll(), "Id", "Name", disabilityCenter.DisabilityId);
-
-            return View(disabilityCenter);
-        }
-
-
-        public IActionResult DeleteDisabilityCenter(int id)
-        {
-            var disabilityCenter = _unitOfWork.DisabilityCenters.FindById(id);
-            ViewBag.Centers = new SelectList(_unitOfWork.Centers.FindAll(), "Id", "Name", disabilityCenter.CentersId);
-            ViewBag.Disabilities = new SelectList(_unitOfWork.Disabilitys.FindAll(), "Id", "Name", disabilityCenter.DisabilityId);
-            return View(disabilityCenter);
-        }
-
-        [HttpPost]
-        public IActionResult DeletePostDisabilityCenter(int id)
-        {
-            var disabilityCenter = _unitOfWork.DisabilityCenters.FindById(id);
-            _unitOfWork.DisabilityCenters.Delete(disabilityCenter);
-            _unitOfWork.Save();
-
-            TempData["Delete"] = "تم حذف البيانات بنجاح";
-            return RedirectToAction(nameof(DisabilityCenter));
-        }
 
 
         //-----------------------------------------------------------------------------------------------------------------------
         // Centers
+
+        private List<SelectListItem> GetRegions()
+        {
+            return new List<SelectListItem>
+        {
+             new SelectListItem { Value = "", Text = "اختر المنطقة", Disabled = true, Selected = true },
+            new SelectListItem { Value = "شرق الرياض", Text = "شرق الرياض" },
+            new SelectListItem { Value = "غرب الرياض", Text = "غرب الرياض" },
+            new SelectListItem { Value = "جنوب الرياض", Text = "جنوب الرياض" },
+            new SelectListItem { Value = "شمال الرياض", Text = "شمال الرياض" },
+            new SelectListItem { Value = "وسط الرياض", Text = "وسط الرياض" }
+        };
+        }
+
 
         public IActionResult Index()
         {
@@ -158,6 +88,7 @@ namespace Tayseer_AspMVC.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            ViewBag.Regions = GetRegions();
             return View();
         }
 
@@ -176,6 +107,7 @@ namespace Tayseer_AspMVC.Controllers
 
                 _unitOfWork.Centers.Add(center);
                 _unitOfWork.Save();
+                ViewBag.Regions = GetRegions();
 
                 TempData["Add"] = "تم اضافة المركز بنجاح";
                 return RedirectToAction("Index");
@@ -188,6 +120,7 @@ namespace Tayseer_AspMVC.Controllers
         {
             var center = _unitOfWork.Centers.FindById(Id);
             if (center == null) return NotFound();
+            ViewBag.Regions = GetRegions();
             return View(center);
         }
 
@@ -204,8 +137,10 @@ namespace Tayseer_AspMVC.Controllers
                 exist.Name = center.Name;
                 exist.Gender = center.Gender;
                 exist.Services = center.Services;
+                exist.Region = center.Region;
+                exist.Address = center.Address;
 
-                if (center.ImageFile != null)
+            if (center.ImageFile != null)
                 {
                     // حذف الصورة القديمة إذا موجودة
                     DeleteImageIfExists(exist.ImageUrl);
@@ -215,8 +150,9 @@ namespace Tayseer_AspMVC.Controllers
                 }
 
                 _unitOfWork.Save();
+                ViewBag.Regions = GetRegions();
 
-                TempData["Update"] = "تم تحديث بيانات المركز بنجاح";
+            TempData["Update"] = "تم تحديث بيانات المركز بنجاح";
                 return RedirectToAction("Index");
             
 

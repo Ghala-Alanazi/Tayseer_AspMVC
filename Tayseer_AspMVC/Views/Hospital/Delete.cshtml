@@ -14,16 +14,22 @@
     </div>
 
     <div>
-        <label asp-for="Address"></label>
-        <input asp-for="Address" class="form-control" readonly />
-    </div>
-
-    <div>
         <label asp-for="Services"></label>
         <input asp-for="Services" class="form-control" readonly />
     </div>
 
-    <div>
+
+    <div >
+        <label asp-for="Region"></label>
+        <input asp-for="Region" class="form-control" asp-items="ViewBag.Regions" readonly></input>
+    </div>
+
+    <div >
+        <label asp-for="Address"> </label>
+        <input asp-for="Address" class="form-control" readonly />
+    </div>
+
+   
         @if (!string.IsNullOrEmpty(Model.ImageUrl))
         {
             <dt class="col-sm-2">Image</dt>

@@ -17,11 +17,14 @@
     <thead>
         <tr>
             <th>#</th>
-            <th>الاسم</th>
-            <th>الجنس</th>
-            <th>المرحلة</th>
-            <th>الصوره</th>
-            <th>الخيارات</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Stages</th>
+            <th>Services</th>
+            <th>Regions</th>
+            <th>Address</th>
+            <th>Image</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -33,6 +36,9 @@
                 <td>@school.Name</td>
                 <td>@school.Gender</td>
                 <td>@school.Stages</td>
+                <td>@school.Services</td>
+                <td>@school.Region</td>
+                <td><a href="@school.Address" target="_blank">رابط اللوكيشن</a></td>
                 <td>
                     @if (!string.IsNullOrEmpty(school.ImageUrl))
                     {

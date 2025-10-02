@@ -71,6 +71,22 @@ namespace Tayseer_AspMVC.Controllers
         //-----------------------------------------------------------------------------------------------------------------------
         //  School
 
+
+
+        private List<SelectListItem> GetRegions()
+        {
+            return new List<SelectListItem>
+        {
+             new SelectListItem { Value = "", Text = "اختر المنطقة", Disabled = true, Selected = true },
+            new SelectListItem { Value = "شرق الرياض", Text = "شرق الرياض" },
+            new SelectListItem { Value = "غرب الرياض", Text = "غرب الرياض" },
+            new SelectListItem { Value = "جنوب الرياض", Text = "جنوب الرياض" },
+            new SelectListItem { Value = "شمال الرياض", Text = "شمال الرياض" },
+            new SelectListItem { Value = "وسط الرياض", Text = "وسط الرياض" }
+        };
+        }
+
+
         public IActionResult Index()
         {
             var schools = _unitOfWork.Schools.FindAll();
@@ -80,7 +96,11 @@ namespace Tayseer_AspMVC.Controllers
 
 
         [HttpGet]
-        public IActionResult Create() => View();
+        public IActionResult Create() 
+        {
+            ViewBag.Regions = GetRegions();
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -91,9 +111,11 @@ namespace Tayseer_AspMVC.Controllers
             if (school.ImageFile != null)
                 school.ImageUrl = SaveImage(school.ImageFile);
 
+
             _unitOfWork.Schools.Add(school);
             _unitOfWork.Save();
 
+            ViewBag.Regions = GetRegions();
             TempData["Add"] = "تمت إضافة المدرسة بنجاح";
             return RedirectToAction("Index");
         }
@@ -103,6 +125,7 @@ namespace Tayseer_AspMVC.Controllers
         {
             var school = _unitOfWork.Schools.FindById(id);
             if (school == null) return NotFound();
+            ViewBag.Regions = GetRegions();
             return View(school);
         }
 
@@ -118,13 +141,15 @@ namespace Tayseer_AspMVC.Controllers
             exist.Name = school.Name;
             exist.Gender = school.Gender;
             exist.Stages = school.Stages;
+            exist.Region = school.Region;
+            exist.Address = school.Address;
 
             if (school.ImageFile != null)
             {
                 DeleteImageIfExists(exist.ImageUrl);
                 exist.ImageUrl = SaveImage(school.ImageFile);
             }
-
+            ViewBag.Regions = GetRegions();
             _unitOfWork.Save();
             TempData["Update"] = "تم تعديل بيانات المدرسة بنجاح";
             return RedirectToAction("Index");
@@ -135,6 +160,7 @@ namespace Tayseer_AspMVC.Controllers
         {
             var school = _unitOfWork.Schools.FindById(id);
             if (school == null) return NotFound();
+
             return View(school);
         }
 

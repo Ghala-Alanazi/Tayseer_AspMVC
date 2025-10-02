@@ -67,6 +67,18 @@ namespace Tayseer_AspMVC.Controllers
         //-----------------------------------------------------------------------------------------------------------------------
         //  Hospital
 
+        private List<SelectListItem> GetRegions()
+        {
+            return new List<SelectListItem>
+        {
+             new SelectListItem { Value = "", Text = "اختر المنطقة", Disabled = true, Selected = true },
+            new SelectListItem { Value = "شرق الرياض", Text = "شرق الرياض" },
+            new SelectListItem { Value = "غرب الرياض", Text = "غرب الرياض" },
+            new SelectListItem { Value = "جنوب الرياض", Text = "جنوب الرياض" },
+            new SelectListItem { Value = "شمال الرياض", Text = "شمال الرياض" },
+            new SelectListItem { Value = "وسط الرياض", Text = "وسط الرياض" }
+        };
+        }
 
         [HttpGet]
         public IActionResult Index()
@@ -84,7 +96,7 @@ namespace Tayseer_AspMVC.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            
+            ViewBag.Regions = GetRegions();
             return View();
         }
 
@@ -102,8 +114,9 @@ namespace Tayseer_AspMVC.Controllers
             }
                 _unitOfWork.Hospitals.Add(hospital);
                 _unitOfWork.Save();
+            ViewBag.Regions = GetRegions();
 
-                TempData["Add"] = "تم اضافة البيانات بنجاح";
+            TempData["Add"] = "تم اضافة البيانات بنجاح";
                 return RedirectToAction("Index");
             
            
@@ -114,6 +127,7 @@ namespace Tayseer_AspMVC.Controllers
         public IActionResult Edit(int id)
         {
             var hospital = _roposHospital.FindById(id);
+            ViewBag.Regions = GetRegions();
             return View(hospital);
 
         }
@@ -129,6 +143,8 @@ namespace Tayseer_AspMVC.Controllers
             exist.Name = hospital.Name;
             exist.Address = hospital.Address;
             exist.Services = hospital.Services;
+            exist.Region = hospital.Region;
+
 
             if (hospital.ImageFile != null)
             {
@@ -140,6 +156,7 @@ namespace Tayseer_AspMVC.Controllers
             }
 
             _unitOfWork.Save();
+            ViewBag.Regions = GetRegions();
 
             TempData["Update"] = "تم تحديث بيانات المركز بنجاح";
             return RedirectToAction("Index");

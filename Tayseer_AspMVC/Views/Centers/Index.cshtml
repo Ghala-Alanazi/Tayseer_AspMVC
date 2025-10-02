@@ -16,6 +16,8 @@
             <th>Name</th>
             <th>Gender</th>
             <th>Services</th>
+            <th>Regions</th>
+            <th>Address</th>
             <th>Image</th>
             <th>Action</th>
         </tr>
@@ -28,6 +30,8 @@
                 <td>@center.Name</td>
                 <td>@center.Gender</td>
                 <td>@center.Services</td>
+                <td>@center.Region</td>
+                <td><a href="@center.Address" target="_blank">رابط اللوكيشن</a></td>
                 <td>
                     @if (!string.IsNullOrEmpty(center.ImageUrl))
                     {

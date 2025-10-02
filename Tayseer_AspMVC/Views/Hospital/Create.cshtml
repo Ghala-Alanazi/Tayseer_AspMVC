@@ -12,16 +12,26 @@
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
-    <div class="mb-3">
-        <label asp-for="Address" class="form-label"></label>
-        <input asp-for="Address" class="form-control" />
-        <span asp-validation-for="Address" class="text-danger"></span>
-    </div>
 
     <div class="mb-3">
         <label asp-for="Services" class="form-label"></label>
         <input asp-for="Services" class="form-control" />
         <span asp-validation-for="Services" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-group">
+        <label>Regions</label>
+        <select asp-for="Region" class="form-control" asp-items="ViewBag.Regions"></select>
+        <span asp-validation-for="Region" class="text-danger"></span>
+    </div>
+
+
+
+    <div class="form-group">
+        <label>Address</label>
+        <input asp-for="Address" type="url" class="form-control" placeholder="ضع الرابط " />
+        <span asp-validation-for="Address" class="text-danger"></span>
     </div>
 
     <div class="mb-3">

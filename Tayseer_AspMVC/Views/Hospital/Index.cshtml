@@ -14,8 +14,9 @@
         <tr>
             <th>#</th>
             <th>Name</th>
-            <th>Address</th>
             <th>Services</th>
+            <th>Regions</th>
+            <th>Address</th>
             <th>Image</th>
             <th>Actions</th>
         </tr>
@@ -26,9 +27,9 @@
             <tr>
                 <td>@hospital.Id</td>
                 <td>@hospital.Name</td>
-              
-                <td>@hospital.Address</td>
                 <td>@hospital.Services</td>
+                <td>@hospital.Region</td>
+                <td><a href="@hospital.Address" target="_blank">رابط اللوكيشن</a></td>
                 <td>
                     @if (!string.IsNullOrEmpty(hospital.ImageUrl))
                     {
