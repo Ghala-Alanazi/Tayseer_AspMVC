@@ -3,46 +3,179 @@
     ViewData["Title"] = "Centers List";
 }
 
-<h1>Centers List</h1>
-<partial name="_NotificationsPartial" />
-<div class="text-end">
-    <a asp-action="Create" class="btn btn-primary mb-3">Create New</a>
-</div>
+<style>
+    body {
+        background-color: #f5f3f0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-<table class="table table-striped mb-3">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Gender</th>
-            <th>Services</th>
-            <th>Regions</th>
-            <th>Address</th>
-            <th>Image</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var center in Model)
-        {
-            <tr>
-                <td>@center.Id</td>
-                <td>@center.Name</td>
-                <td>@center.Gender</td>
-                <td>@center.Services</td>
-                <td>@center.Region</td>
-                <td><a href="@center.Address" target="_blank">رابط اللوكيشن</a></td>
-                <td>
-                    @if (!string.IsNullOrEmpty(center.ImageUrl))
-                    {
-                        <img src="@center.ImageUrl" alt="Image" width="80" height="60" class="img-thumbnail" />
-                    }
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@center.Id" class="btn btn-warning">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@center.Id" class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
+    .card-container {
+        background-color: #ffffff;
+        border-radius: 12px;
+        padding: 20px;
+        margin: 30px auto;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        max-width: 1200px;
+    }
+
+    h1 {
+        color: #22636b;
+        text-align: center;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+    /* زر إنشاء جديد */
+    .btn-add {
+        float: right;
+        background-color: #22636b;
+        color: white;
+        border-radius: 50px;
+        padding: 8px 18px;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        text-decoration: none;
+        margin-bottom: 15px;
+    }
+
+        .btn-add:hover {
+            background-color: #1b4f54;
         }
-    </tbody>
-</table>
+
+    table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    thead {
+        background-color: #22636b;
+        color: white;
+    }
+
+        thead th {
+            padding: 12px;
+            text-align: center;
+            position: relative;
+        }
+
+            thead th::after {
+                content: '';
+                display: block;
+                width: 100%;
+                height: 3px;
+                background-color: #ff7c38;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+            }
+
+    tbody tr {
+        text-align: center;
+        background-color: white;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+        tbody tr td {
+            padding: 10px;
+            vertical-align: middle;
+        }
+
+    /* أزرار Edit / Delete */
+    .btn-circle {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s;
+        margin-right: 6px;
+    }
+
+    .btn-edit {
+        background-color: #d7f0fa;
+        color: #22636b;
+    }
+
+        .btn-edit:hover {
+            background-color: #b0e3f0;
+        }
+
+    .btn-delete {
+        background-color: #ffdce0;
+        color: #d63031;
+    }
+
+        .btn-delete:hover {
+            background-color: #ffb3b8;
+        }
+
+    /* الصور المصغرة */
+    .img-thumb {
+        width: 60px;
+        height: 60px;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+</style>
+
+<div class="card-container">
+    <h1>قائمةالمراكز </h1>
+
+    <a asp-action="Create" class="btn-add">
+        <i class="bi bi-plus-lg"></i>  إضافة مركز جديد
+    </a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>الاسم</th>
+                <th>النوع</th>
+                <th>الخدمات</th>
+                <th>المنطقة</th>
+                <th>العنوان</th>
+                <th>الصورة</th>
+                <th>الإجراءات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var center in Model)
+            {
+                <tr>
+                    <td>@center.Id</td>
+                    <td>@center.Name</td>
+                    <td>@center.Gender</td>
+                    <td>@center.Services</td>
+                    <td>@center.Region</td>
+                    <td>
+                        <a href="@center.Address" target="_blank">رابط اللوكيشن</a>
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(center.ImageUrl))
+                        {
+                            <img src="@center.ImageUrl" class="img-thumb" />
+                        }
+                        else
+                        {
+                            <span class="text-muted">لا توجد صورة</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@center.Id" class="btn-circle btn-edit">
+                            <i class="bi bi-pencil">Edit</i>
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@center.Id" class="btn-circle btn-delete">
+                            <i class="bi bi-trash">Delete</i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
