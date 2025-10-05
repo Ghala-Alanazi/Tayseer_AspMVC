@@ -13,5 +13,9 @@ namespace Tayseer_AspMVC.Models
         [NotMapped]
         public IFormFile? ImageFile { get; set; }
         public string? ImageUrl { get; set; }
+
+        public ICollection<DisabilityHospital>? disabilityHospitals { set; get; }
+
+
     }
 }

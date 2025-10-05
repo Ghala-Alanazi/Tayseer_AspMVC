@@ -1,4 +1,4 @@
-@Tayseer_AspAPI_HostAddress = http://localhost:5294
+@Tayseer_AspAPI_HostAddress = http://localhost:5227
 
 GET {{Tayseer_AspAPI_HostAddress}}/weatherforecast/
 Accept: application/json

@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.36221.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tayseer_AspMVC", "Tayseer_AspMVC\Tayseer_AspMVC.csproj", "{50EABDD7-6DAD-4108-896C-186A3DF3084A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tayseer_AspAPI", "Tayseer_AspAPI\Tayseer_AspAPI.csproj", "{3A7CB8DF-B9C1-48A0-9504-1C37C5F5B281}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{50EABDD7-6DAD-4108-896C-186A3DF3084A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50EABDD7-6DAD-4108-896C-186A3DF3084A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50EABDD7-6DAD-4108-896C-186A3DF3084A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A7CB8DF-B9C1-48A0-9504-1C37C5F5B281}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A7CB8DF-B9C1-48A0-9504-1C37C5F5B281}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A7CB8DF-B9C1-48A0-9504-1C37C5F5B281}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A7CB8DF-B9C1-48A0-9504-1C37C5F5B281}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
