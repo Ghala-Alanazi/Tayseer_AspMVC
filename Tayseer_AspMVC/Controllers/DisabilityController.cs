@@ -2,11 +2,13 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Tayseer_AspMVC.Dtos;
+using Tayseer_AspMVC.Filters;
 using Tayseer_AspMVC.Models;
 using Tayseer_AspMVC.Repository.Base;
 
 namespace Tayseer_AspMVC.Controllers
 {
+    [SessionAuthorize]
     public class DisabilityController : Controller
     {
         

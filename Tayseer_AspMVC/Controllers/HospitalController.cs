@@ -3,12 +3,14 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Tayseer_AspMVC.Filters;
 using Tayseer_AspMVC.Models;
 using Tayseer_AspMVC.Repository;
 using Tayseer_AspMVC.Repository.Base;
 
 namespace Tayseer_AspMVC.Controllers
 {
+    [SessionAuthorize]
     public class HospitalController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

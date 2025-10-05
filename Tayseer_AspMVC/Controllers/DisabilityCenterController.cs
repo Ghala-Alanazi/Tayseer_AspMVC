@@ -1,15 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Tayseer_AspMVC.Filters;
 using Tayseer_AspMVC.Models;
 using Tayseer_AspMVC.Repository.Base;
 
 namespace Tayseer_AspMVC.Controllers
 {
+    [SessionAuthorize]
     public class DisabilityCenterController : Controller
     {
+       
 
-        
-            private readonly IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
             public DisabilityCenterController(IUnitOfWork unitOfWork)
             {

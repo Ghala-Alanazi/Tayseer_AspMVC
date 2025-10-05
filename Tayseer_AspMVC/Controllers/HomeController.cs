@@ -8,6 +8,15 @@ namespace Tayseer_AspMVC.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+
+
+        private bool IsLoggedIn()
+        {
+            return !string.IsNullOrEmpty(HttpContext.Session.GetString("UserName"));
+        }
+
+
+
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -15,11 +24,20 @@ namespace Tayseer_AspMVC.Controllers
 
         public IActionResult Index()
         {
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("Username")))
+            {
+                return RedirectToAction("Login", "EmployeeAccount");
+            }
             return View();
         }
 
         public IActionResult Privacy()
         {
+            if (IsLoggedIn() == false)
+            {
+                return RedirectToAction("Login", "EmployeeAccount");
+            }
             return View();
         }
 

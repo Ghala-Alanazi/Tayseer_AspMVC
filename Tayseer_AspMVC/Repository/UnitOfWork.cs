@@ -25,22 +25,20 @@ namespace Tayseer_AspMVC.Repository
             DisabilitySchools = new MainRepository<DisabilitySchool>(_context);
             DisabilityCenters = new MainRepository<DisabilityCenter>(_context);
             Centers = new MainRepository<Centers>(_context);
-
-
+            Customers = new MainRepository<Customer>(_context);
 
         }
+
+
         public IRepository<Disability> Disabilitys { get; set; }
         public IRepository<Hospital> Hospitals { get; set; }
-
         public  IRoposHospital roposHospital { get; set; }
-          public IRepoCenter RepoCenters { get;  }
+        public IRepoCenter RepoCenters { get;  }
         public IRepository<Centers> Centers { get; }
         public IRepoSchool Schools { get; }
-
-
         public IRepoEmployee Employees { get; }
-       
         public IRepository<UserRole> UserRoles { get; set; }
+        public IRepository<Customer> Customers { get; }
         public IRepository<DisabilityHospital> DisabilityHospitals { get; set; }
         public IRepository<DisabilitySchool> DisabilitySchools { get; set; }
         public IRepository<DisabilityCenter> DisabilityCenters { get; set; }

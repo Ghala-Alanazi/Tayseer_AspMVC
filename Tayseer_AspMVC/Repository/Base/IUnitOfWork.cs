@@ -1,4 +1,5 @@
 ﻿using System.Security;
+using Tayseer_AspMVC.Controllers;
 using Tayseer_AspMVC.Migrations;
 using Tayseer_AspMVC.Models;
 
@@ -19,8 +20,9 @@ namespace Tayseer_AspMVC.Repository.Base
         IRepoSchool Schools { get; }
         IRepoEmployee Employees { get; }
         IRepository<UserRole> UserRoles { get; }
+        IRepository<Customer> Customers { get; }
 
-       IRepository<DisabilityHospital> DisabilityHospitals { get; }
+        IRepository<DisabilityHospital> DisabilityHospitals { get; }
         IRepository<DisabilitySchool> DisabilitySchools { get; set; }
 
         IRepository<DisabilityCenter> DisabilityCenters { get; set; }

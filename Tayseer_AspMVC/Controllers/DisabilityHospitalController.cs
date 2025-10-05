@@ -1,12 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Tayseer_AspMVC.Filters;
 using Tayseer_AspMVC.Models;
 using Tayseer_AspMVC.Repository.Base;
 
 namespace Tayseer_AspMVC.Controllers
 {
+    [SessionAuthorize]
     public class DisabilityHospitalController : Controller
     {
+
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly IRoposHospital _roposHospital;

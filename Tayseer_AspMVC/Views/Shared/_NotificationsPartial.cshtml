@@ -1,13 +1,31 @@
 ﻿<script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+<h1>Category List</h1>
+
+@* @if(Model !=null && Model.Any())
+{
+
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        تم تحميل البيانات بنجاح ✅
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+else
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        فشل في تحميل البيانات ❌
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+} *@
+
 
 
 @if (TempData["Sucees"] != null)
 {
 
     <div class="alert alert-success alert-dismissible fade show" role="alert">
-        @TempData["Success"] ✅
+        @TempData["Sucees"] ✅
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     <script>
@@ -57,5 +75,6 @@
         toastr.error('@TempData["Remove"]', 'خطأ');
     </script>
 }
+
 
 

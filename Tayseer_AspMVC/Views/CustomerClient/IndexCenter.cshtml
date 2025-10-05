@@ -1,0 +1,100 @@
+﻿@model IEnumerable<Centers>
+@{
+    ViewData["Title"] = "المراكز";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+<section class="healthcare-header text-center d-flex align-items-center justify-content-center"
+         style="background: linear-gradient(rgba(43,106,120,0.9), rgba(26,54,93,0.9));
+                color:white;
+                clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+                margin-top:120px;
+                height:350px;
+                padding:50px 0;">
+
+    <div class="container">
+        <h1 style="font-size:2.5rem; font-weight:bold;">المراكز</h1>
+        <p style="font-size:1.2rem;">تعرف على المراكز المعتمدة في منطقتك</p>
+    </div>
+</section>
+
+<section class="page-section bg-light py-5 mb-5">
+    <div class="container">
+        <div class="row g-4">
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var center in Model)
+                {
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card border-0 shadow-sm text-center p-4"
+                             style="border-radius:20px; background-color:#fff; transition: all 0.3s ease;">
+
+                            @if (!string.IsNullOrEmpty(center.ImageUrl))
+                            {
+                                <img src="@center.ImageUrl" alt="@center.Name"
+                                     class="mx-auto mb-3"
+                                     style="width:180px; height:120px; object-fit:cover; border-radius:8px;" />
+                            }
+                            else
+                            {
+                                <img src="~/assets/img/placeholder.png" alt="صورة غير متوفرة"
+                                     class="mx-auto mb-3"
+                                     style="width:180px; height:120px; object-fit:cover; border-radius:8px;" />
+                            }
+
+                            <h5 class="fw-bold mb-2">@center.Name</h5>
+
+                            <p class="text-muted mb-1">
+                                👥 <strong>النوع:</strong> @center.Gender
+                            </p>
+                            <p class="text-muted mb-1">
+                                🏥 <strong>الخدمات:</strong> @center.Services
+                            </p>
+                            <p class="text-muted mb-3">
+                                📍 <strong>المنطقة:</strong> @center.Region
+                            </p>
+
+                            <a href="@center.Address" target="_blank"
+                               class="btn rounded-pill px-4 py-2 fw-semibold"
+                               style="background-color:#1c4c4e; color:#fff;">
+                                الموقع على الخريطة
+                            </a>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12 text-center text-muted" style="font-size:1.2rem; padding:2rem;">
+                    🏥 لا توجد مراكز متاحة حاليًا
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<style>
+    body {
+        background-color: #f8f6f1;
+    }
+
+    .healthcare-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .healthcare-header p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    .btn:hover {
+        background-color: #16393a !important;
+    }
+</style>
