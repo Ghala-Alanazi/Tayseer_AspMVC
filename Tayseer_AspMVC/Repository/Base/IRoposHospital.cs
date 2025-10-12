@@ -2,10 +2,15 @@
 
 namespace Tayseer_AspMVC.Repository.Base
 {
-    public interface IRoposHospital : IRepository<Hospital>
+    public interface IReposHospital : IRepository<Hospital>
     {
 
         IEnumerable<DisabilityHospital> DisabilityHospital();
+
+        Hospital FindByUIdHospital(string uid);
+
+
+
 
 
     }

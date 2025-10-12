@@ -7,6 +7,8 @@ namespace Tayseer_AspMVC.Models
     {
         [Key]
         public int Id { get; set; }
+        public string uid { get; set; } = Guid.NewGuid().ToString();
+
         public string Name { get; set; }
         public string Gender { get; set; }
         public string Stages { get; set; }

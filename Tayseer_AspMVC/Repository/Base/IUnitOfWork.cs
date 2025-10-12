@@ -11,7 +11,7 @@ namespace Tayseer_AspMVC.Repository.Base
         IRepository<Disability> Disabilitys { get; }
         IRepository<Hospital> Hospitals { get; }
 
-        IRoposHospital roposHospital { get; }
+        IReposHospital roposHospital { get; }
 
         IRepository<Centers> Centers { get; }
 

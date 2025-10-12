@@ -22,7 +22,7 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
-builder.Services.AddScoped<IRoposHospital, RoposHospital>();
+builder.Services.AddScoped<IReposHospital, ReposHospital>();
 builder.Services.AddScoped<IRepoSchool, RepoSchool>();
 
 var app = builder.Build();

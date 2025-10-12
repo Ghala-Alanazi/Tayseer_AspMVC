@@ -135,7 +135,8 @@ namespace Tayseer_AspMVC.Controllers
                 var exist = _unitOfWork.Centers.FindById(center.Id);
                 if (exist == null) return NotFound();
 
-                // تحديث الحقول فقط
+            // تحديث الحقول فقط
+                exist.uid = Guid.NewGuid().ToString();
                 exist.Name = center.Name;
                 exist.Gender = center.Gender;
                 exist.Services = center.Services;

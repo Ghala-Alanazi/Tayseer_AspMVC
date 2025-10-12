@@ -14,13 +14,13 @@ namespace Tayseer_AspMVC.Controllers
     public class HospitalController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IRoposHospital _roposHospital;
+        private readonly IReposHospital _reposHospital;
         private readonly IWebHostEnvironment _env;
 
-        public HospitalController(IUnitOfWork unitOfWork, IRoposHospital hospitalRepo, IWebHostEnvironment env)
+        public HospitalController(IUnitOfWork unitOfWork, IReposHospital hospitalRepo, IWebHostEnvironment env)
         {
             _unitOfWork = unitOfWork;
-            _roposHospital = hospitalRepo;
+            _reposHospital = hospitalRepo;
             _env = env;
         }
 
@@ -128,7 +128,7 @@ namespace Tayseer_AspMVC.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var hospital = _roposHospital.FindById(id);
+            var hospital = _reposHospital.FindById(id);
             ViewBag.Regions = GetRegions();
             return View(hospital);
 
@@ -142,6 +142,7 @@ namespace Tayseer_AspMVC.Controllers
             if (exist == null) return NotFound();
 
             // عدل القيم
+            exist.uid = Guid.NewGuid().ToString();
             exist.Name = hospital.Name;
             exist.Address = hospital.Address;
             exist.Services = hospital.Services;

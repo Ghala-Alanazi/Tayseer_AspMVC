@@ -28,6 +28,11 @@ namespace Tayseer_AspMVC.Repository
 
 
         }
+        public School FindByUIdSchool(string uid)
+        {
+            var school = _context.Schools.FirstOrDefault(h => h.uid == uid);
+            return school;
+        }
 
 
     }

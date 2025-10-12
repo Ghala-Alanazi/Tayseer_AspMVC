@@ -140,6 +140,7 @@ namespace Tayseer_AspMVC.Controllers
             var exist = _unitOfWork.Schools.FindById(school.Id);
             if (exist == null) return NotFound();
 
+            exist.uid = Guid.NewGuid().ToString();
             exist.Name = school.Name;
             exist.Gender = school.Gender;
             exist.Stages = school.Stages;

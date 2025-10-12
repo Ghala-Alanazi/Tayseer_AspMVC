@@ -5,6 +5,7 @@ namespace Tayseer_AspMVC.Repository.Base
     public interface IRepoCenter : IRepository<Disability>
     {
         IEnumerable<DisabilityCenter> DisabilityCenter();
+        Centers FindByUIdCenter(string uid);
 
     }
 }

@@ -27,5 +27,11 @@ namespace Tayseer_AspMVC.Repository
 
         }
 
+        public Centers FindByUIdCenter(string uid)
+        {
+            var center = _context.Centers.FirstOrDefault(h => h.uid == uid);
+            return center;
+        }
+
     }
 }

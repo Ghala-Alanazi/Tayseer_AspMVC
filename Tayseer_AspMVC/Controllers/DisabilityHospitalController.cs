@@ -12,10 +12,10 @@ namespace Tayseer_AspMVC.Controllers
 
 
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IRoposHospital _roposHospital;
+        private readonly IReposHospital _roposHospital;
       
 
-        public DisabilityHospitalController(IUnitOfWork unitOfWork, IRoposHospital hospitalRepo)
+        public DisabilityHospitalController(IUnitOfWork unitOfWork, IReposHospital hospitalRepo)
         {
             _unitOfWork = unitOfWork;
             _roposHospital = hospitalRepo;

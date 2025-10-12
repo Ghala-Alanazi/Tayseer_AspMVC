@@ -5,6 +5,7 @@ namespace Tayseer_AspMVC.Models
     public class Hospital
     {
         public int Id { get; set; }
+        public string uid { get; set; } = Guid.NewGuid().ToString();
         public string Name { get; set; }
         public string Services { get; set; }
         public string Region { get; set; }

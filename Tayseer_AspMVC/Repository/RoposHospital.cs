@@ -7,11 +7,11 @@ using System.Linq;
 
 namespace Tayseer_AspMVC.Repository
 {
-    public class RoposHospital : MainRepository<Hospital>, IRoposHospital
+    public class ReposHospital : MainRepository<Hospital>, IReposHospital
     {
         private readonly ApplicationDbContext _context;
 
-        public RoposHospital(ApplicationDbContext context) : base(context)
+        public ReposHospital(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }
@@ -28,6 +28,11 @@ namespace Tayseer_AspMVC.Repository
             return disability;
 
 
+        }
+        public Hospital FindByUIdHospital(string uid)
+        {
+            var hospital = _context.Hospitals.FirstOrDefault(h => h.uid == uid);
+            return hospital;
         }
 
 
