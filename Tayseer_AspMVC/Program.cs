@@ -24,6 +24,9 @@ builder.Services.AddSession(options =>
 });
 builder.Services.AddScoped<IReposHospital, ReposHospital>();
 builder.Services.AddScoped<IRepoSchool, RepoSchool>();
+builder.Services.AddScoped<IRepoCenter, RepoCenter>();
+
+
 
 var app = builder.Build();
 
