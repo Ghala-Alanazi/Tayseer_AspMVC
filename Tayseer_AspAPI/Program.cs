@@ -16,6 +16,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped(typeof(IRepository<>), typeof(MainRepository<>));
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IReposHospital, ReposHospital>();
+builder.Services.AddScoped<IRepoSchool, RepoSchool>();
+builder.Services.AddScoped<IRepoCenter, RepoCenter>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
