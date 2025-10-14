@@ -1,81 +1,149 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="ar" dir="rtl">
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width" charset="utf-8" />
     <title>@ViewBag.Title</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="~/ClientTemplate/assets/favicon.ico" />
-    <!-- Font Awesome icons (free version)-->
+    <!-- Font Awesome icons -->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
-    <!-- Core theme CSS (includes Bootstrap)-->
+    <!-- Google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" />
+    <!-- Bootstrap CSS -->
     <link href="~/ClientTemplate/css/styles.css" rel="stylesheet" />
+
     <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-        }
-
         body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f6f1; 
+
+        /* ======= شريط التنقل ======= */
+        .navbar-custom {
+            background-color: #f2ebdf; /* بيج فاتح */
+            padding: 0.8rem 1.5rem;
+            border-bottom: 3px solid #ddd;
         }
 
+            .navbar-custom .nav-link {
+                color: #1c4c4e !important; 
+                font-weight: 500;
+                margin: 0 10px;
+                transition: 0.3s;
+            }
+
+                .navbar-custom .nav-link:hover {
+                    color: #16393a !important; /* لون hover متناسق */
+                }
+
+            .navbar-custom .navbar-brand img {
+                height: 65px; /* حجم اللوقو */
+                width: auto;
+            }
+
+        .navbar-icons i {
+            font-size: 1.3rem;
+            color: #1c4c4e; /* أزرق غامق متناسق */
+            margin-left: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+            .navbar-icons i:hover {
+                color: #16393a;
+            }
+
+        /* حذف أي فراغ أسفل النافبار */
         main {
-            flex: 1; /* يوسع المحتوى */
+            margin-top: 0 !important;
+            padding-top: 0 !important;
         }
 
-        footer.footer {
-            background-color: #f8f9fa;
+        body > nav.navbar-custom + main {
+            margin-top: 0 !important;
         }
+
+        /* ======= الفوتر ======= */
+        .footer {
+            background-color: #f2ebdf; /* بيج فاتح متناسق مع الصفحة */
+        }
+
+            .footer a.btn-social {
+                background-color: #1c4c4e; /* أزرق غامق */
+                color: #fff;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 5px;
+                transition: all 0.3s ease;
+            }
+
+                .footer a.btn-social:hover {
+                    background-color: #16393a;
+                    color: #fff;
+                }
+
+            .footer a.link-dark {
+                color: #1c4c4e !important;
+                transition: all 0.3s ease;
+            }
+
+                .footer a.link-dark:hover {
+                    color: #16393a !important;
+                }
     </style>
 </head>
 <body>
-    <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:antiquewhite" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand" href="#page-top"><img src="assets/img/navbar-logo.svg" alt="..." /></a>
+    <!-- ======= شريط التنقل ======= -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container-fluid">
+            <!-- شعار الموقع -->
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="~/ClientTemplate/assets/img/logos/logo.png" alt="شعار تيسير" />
+            </a>
+
+            <!-- زر القائمة للجوال -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
                     aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                Menu
-                <i class="fas fa-bars ms-1"></i>
+                <i class="fas fa-bars text-dark"></i>
             </button>
+
+            <!-- الروابط -->
             <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav text-uppercase ms-auto py-4 py-0">
-                    <li class="nav-item"><a class="nav-link text-black" asp-controller="CustomerClient" asp-action="Index">الرئيسية</a></li>
-                    <li class="nav-item"><a class="nav-link text-black" asp-controller="CustomerClient" asp-action="IndexHospital">المراكز الصحية</a></li>
-                    <li class="nav-item"><a class="nav-link text-black" asp-controller="CustomerClient" asp-action="IndexSchool">التعليم</a></li>
-                    <li class="nav-item"><a class="nav-link text-black" asp-controller="CustomerClient" asp-action="IndexCenter">المراكز الترفيهية</a></li>
+                <ul class="navbar-nav text-uppercase ms-auto py-2">
+                    <li class="nav-item"><a class="nav-link" asp-controller="CustomerClient" asp-action="Index">الرئيسية</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="CustomerClient" asp-action="IndexSchool">التعليم</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="CustomerClient" asp-action="IndexHospital">الخدمات الصحية</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="CustomerClient" asp-action="IndexCenter">المراكز </a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- المحتوى -->
-    <main class="mt-5 pt-4">
+    <!-- ======= المحتوى ======= -->
+    <main>
         @RenderBody()
     </main>
 
-    <!-- Footer-->
+    <!-- ======= الفوتر ======= -->
     <footer class="footer py-4">
         <div class="container">
-            <div class="row align-items-center">
+            <div class="row align-items-center text-center">
                 <div class="col-lg-4 text-lg-start">Copyright &copy; Your Website 2023</div>
                 <div class="col-lg-4 my-3 my-lg-0">
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-social mx-2" href="#"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-social mx-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-social mx-2" href="#"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <div class="col-lg-4 text-lg-end">
-                    <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>
-                    <a class="link-dark text-decoration-none" href="#!">Terms of Use</a>
+                    <a class="link-dark text-decoration-none me-3" href="#">Privacy Policy</a>
+                    <a class="link-dark text-decoration-none" href="#">Terms of Use</a>
                 </div>
             </div>
         </div>

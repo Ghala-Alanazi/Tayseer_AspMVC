@@ -4,17 +4,10 @@
     Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
 }
 
-<section class="healthcare-header text-center d-flex align-items-center justify-content-center"
-         style="background: linear-gradient(rgba(43,106,120,0.9), rgba(26,54,93,0.9));
-                color:white;
-                clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
-                margin-top:120px;
-                height:350px;
-                padding:50px 0;">
-
+<section class="service-header d-flex align-items-center justify-content-center text-center">
     <div class="container">
-        <h1 style="font-size:2.5rem; font-weight:bold;">المدارس المخصصة لذوي الاحتياجات الخاصة</h1>
-        <p style="font-size:1.2rem;">اكتشف أفضل المؤسسات التعليمية المتخصصة في الرعاية والتدريس</p>
+        <h1> المدارس المخصصة لذوي الاحتياجات الخاصة</h1>
+        <p>اكتشف أفضل المؤسسات التعليمية المتخصصة في الرعاية والتدريس</p>
     </div>
 </section>
 
@@ -75,6 +68,16 @@
 </section>
 
 <style>
+    /* ===== الشريط العلوي ===== */
+    .service-header {
+        background: linear-gradient(135deg, #2b6a78 0%, #1a365d 100%);
+        color: white;
+        height: 350px;
+        padding: 60px 20px;
+        clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        margin-top: 100px;
+    }
     body {
         background-color: #f8f6f1;
     }
@@ -94,7 +97,11 @@
         transform: translateY(-5px);
         box-shadow: 0 6px 20px rgba(0,0,0,0.1);
     }
-
+    /* حذف أي فراغ أسفل النافبار */
+    main {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
     .btn:hover {
         background-color: #16393a !important;
     }
@@ -102,4 +109,5 @@
     #portfolio {
         margin-bottom: 80px;
     }
+
 </style>
